@@ -6840,7 +6840,7 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){
     <span>🏥 放射線治療 AI Q&amp;A（Gemini）</span>
     <button id="chat-header-close">✕</button>
   </div>
-  <div id="chat-key-bar">
+  <div id="chat-key-bar" style="display:none">
     <label>API Key:</label>
     <input id="chat-key-input" type="password" placeholder="AIza..." autocomplete="off">
     <button id="chat-key-save">保存</button>
@@ -6884,8 +6884,9 @@ Google AI Studio（aistudio.google.com）でAPIキーを取得して上部に入
   const sendBtn  = document.getElementById('chat-send');
 
   // Load saved key
-  const savedKey = localStorage.getItem('gemini_api_key') || '';
-  if (savedKey) { keyInput.value = savedKey; keyOk.style.display = 'inline'; }
+  const GEMINI_API_KEY = 'AIzaSyC06aUuhigQ2vssRrgicnYb7dtlK77IXPs';  // ← ここにキーを貼る
+  const savedKey = GEMINI_API_KEY;
+  localStorage.setItem('gemini_api_key', GEMINI_API_KEY);
 
   fab.addEventListener('click', () => panel.classList.toggle('open'));
   closeBtn.addEventListener('click', () => panel.classList.remove('open'));
@@ -6934,8 +6935,7 @@ Google AI Studio（aistudio.google.com）でAPIキーを取得して上部に入
     const text = input.value.trim();
     if (!text) return;
 
-    const apiKey = localStorage.getItem('gemini_api_key') || keyInput.value.trim();
-    if (!apiKey) { appendError('APIキーを設定してください（上部の入力欄）'); return; }
+    const apiKey = GEMINI_API_KEY;
 
     input.value = '';
     input.style.height = 'auto';
